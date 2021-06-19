@@ -1,0 +1,58 @@
+19-Feb-21 15:19:37 root - INFO - <module>- Starting, Job Search....
+19-Feb-21 15:19:37 root - INFO - <module>- Job titles
+19-Feb-21 15:19:37 root - INFO - <module>- ['Python Developer' 'Data Science' 'SDET'
+ 'Software Quality Assurance Engineer' 'Java Developer']
+19-Feb-21 15:19:37 root - INFO - <module>- Job Locations
+19-Feb-21 15:19:37 root - INFO - <module>- ['Austin,TX' 'Atlanta, GA' 'Baltimore, MD' 'Boston, MA' 'Boulder, CO'
+ 'Charlotte, NC' 'Colorado Springs, CO' 'Columbus, OH' 'Dallas, TX'
+ 'Denver, CO' 'Durham-Chapel Hill, NC' 'Huntsville, AL' 'Jacksonville, FL'
+ 'Nashville, TN' 'New York, NY' 'Raleigh, NC' 'San Diego, CA'
+ 'San Francisco, CA' 'San Jose, CA' 'Seattle, WA' 'Tampa, FL'
+ 'Washington, DC']
+19-Feb-21 15:19:37 root - INFO - __init__- JobPortal_Common_Defs Initialised
+19-Feb-21 15:19:37 root - INFO - __init__- Started at:2021-02-19 15:19:37.084269
+19-Feb-21 15:19:37 root - INFO - __init__- Jobs_Scrapped_new.csv created
+19-Feb-21 15:19:37 WDM - INFO - log- Driver [C:\Users\Administrator\.wdm\drivers\geckodriver\win64\v0.29.0\geckodriver.exe] found in cache
+19-Feb-21 15:20:00 root - INFO - get_driver- Browser opened successfully
+19-Feb-21 15:20:03 root - INFO - __init__- ######################################################################### 
+                                                                          
+===========================Monster Job Search=============================
+                                                                          
+##########################################################################
+19-Feb-21 15:20:03 root - INFO - __init__- https://www.monster.com/jobs/search/
+19-Feb-21 15:20:03 root - INFO - monster_get_jobs- In monster_get_jobs
+19-Feb-21 15:20:14 root - INFO - monster_search_jobs- In monster_search_jobs
+19-Feb-21 15:20:14 root - INFO - find_web_element- Job Title Textbox found and returned
+19-Feb-21 15:20:14 root - INFO - web_element_action- send_keys to Job Title Textbox
+19-Feb-21 15:20:14 root - INFO - find_web_element- Job Location Textbox found and returned
+19-Feb-21 15:20:14 root - INFO - web_element_action- send_keys to Job Location Textbox
+19-Feb-21 15:20:14 root - INFO - find_web_element- Search Button found and returned
+19-Feb-21 15:20:15 root - INFO - web_element_action- Search Button clicked
+19-Feb-21 15:20:29 root - INFO - monster_valid_job- In monster_valid_jobs
+19-Feb-21 15:20:29 root - INFO - find_web_element- Invalid Search Text found and returned
+19-Feb-21 15:20:29 root - INFO - monster_valid_job- Python Developer Jobs in Austin, Texas
+19-Feb-21 15:20:29 root - INFO - monster_loadmore_jobs- In monster_loadmore_jobs
+19-Feb-21 15:20:32 root - ERROR - monster_loadmore_jobs- Unexpected exception in monster_loadmore_jobsMessage: Unable to locate element: //*[@id='loadMoreJobs'][@class='mux-btn btn-secondary load-more-btn ']
+
+19-Feb-21 15:20:33 root - INFO - monster_get_job_links- In monster_get_job_links
+19-Feb-21 15:20:33 root - INFO - find_web_element- Found and returned list of web elements Job Links
+19-Feb-21 15:20:33 root - INFO - monster_get_job_company- In monster_get_job_company
+19-Feb-21 15:20:33 root - INFO - find_web_element- Found and returned list of web elements Job Company Name
+19-Feb-21 15:20:33 root - INFO - monster_get_job_location- In monster_get_job_location
+19-Feb-21 15:20:33 root - INFO - find_web_element- Found and returned list of web elements Job Location
+19-Feb-21 15:20:33 root - INFO - monster_get_job_posted_datetime- In monster_get_posted_datetime
+19-Feb-21 15:20:33 root - INFO - find_web_element- Found and returned list of web elements Job Date Posted
+19-Feb-21 15:20:33 root - INFO - monster_get_jobs- Links Populated for Monster : Python Developer Austin,TX are : 8
+19-Feb-21 15:20:33 root - INFO - monster_get_job_desc- In monster_get_jobs_desc
+19-Feb-21 15:20:33 root - INFO - monster_get_job_desc- job title: Senior Software Engineer
+19-Feb-21 15:20:33 root - INFO - monster_get_job_desc- Monster, Link clicked  :Python Developer Austin,TX 1 / 8
+19-Feb-21 15:20:33 root - INFO - monster_get_job_desc- ==============================================> 1
+19-Feb-21 15:20:33 root - INFO - web_element_action- Job link clicked
+19-Feb-21 15:20:33 root - INFO - find_web_element- Found and returned list of web elements Job Description
+19-Feb-21 15:20:33 root - INFO - monster_get_job_desc- []
+19-Feb-21 15:20:33 root - INFO - monster_get_job_desc- []
+19-Feb-21 15:20:33 root - INFO - monster_get_job_desc- []
+19-Feb-21 15:20:33 root - INFO - monster_get_job_desc- []
+19-Feb-21 15:20:33 root - INFO - monster_get_job_desc- []
+19-Feb-21 15:20:33 root - INFO - monster_get_job_desc- []
+19-Feb-21 15:20:33 root - INFO - monster_get_job_desc- Sleeping before and after 50 jobs

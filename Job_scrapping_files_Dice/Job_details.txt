@@ -1,0 +1,10 @@
+[('Data Science',), ('Python Developers',), ('Java Developer',), ('Software Quality Assurance Engineer',), ('SDET',)]
+[('Data Science',), ('Python Developers',), ('Java Developer',), ('Software Quality Assurance Engineer',), ('SDET',)]
+['Data Science' 'Python Developers' 'Java Developer'
+ 'Software Quality Assurance Engineer' 'SDET']
+['Washington, DC' 'Boston, MA' 'San Francisco, CA' 'Austin, TX'
+ 'San Diego, CA' 'Durham-Chapel Hill, NC' 'Charlotte, NC' 'San Jose, CA'
+ 'Raleigh, NC' 'Seattle, WA' 'Tampa, FL' 'Jacksonville, FL'
+ 'Baltimore, MD' 'Columbus, OH' 'New York, NY' 'Atlanta, GA'
+ 'Colorado Springs, CO' 'Boulder, CO' 'Denver, CO' 'Huntsville, AL'
+ 'Nashville, TN' 'Dallas, TX']

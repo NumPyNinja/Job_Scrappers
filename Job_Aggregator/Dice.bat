@@ -1,0 +1,1 @@
+python.exe main.py Dice >> dice.log

@@ -1,0 +1,415 @@
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
+from time import sleep
+import numpy as np
+from datetime import datetime
+import logging
+from JobPortal_Common_Defs import JobPortal_Common
+import Driver_Paths
+import time
+import random
+
+
+class IndeedMain:
+    job_list = []
+    location_list = []
+    job_title_list = []
+    job_link_list = []
+    company_name = ""
+    job_title = ""
+    job_link = ""
+    driver = None
+    start_time = datetime.now()
+    url = ""
+    page = 0
+    count = 0
+    jobs = 0
+    job_details = {'Job Category': '', 'Date Time Scrapped': '', 'Searched Job Title': '', 'Searched Job Location': '',
+                   'Job Portal': 'Indeed', 'Job Date Posted': '', 'Job Title': '',
+                   'Job Company Name': '', 'Job Location': '', 'Job Phone No': '', 'Job Email': '', 'Job Link': '',
+                   'Job Description': ''}
+
+    def __init__(self, driver, url):
+        try:
+            print(self.start_time)
+            self.driver = driver
+            self.url = url
+            self.wait = WebDriverWait(self.driver, 20)
+
+            print("######################################################################### \n"
+                  "                                                                          \n"
+                  "===========================Indeed Job Search=============================\n"
+                  "                                                                          \n"
+                  "##########################################################################")
+            print(url)
+        except Exception as e:
+            print("Unknown Exception in Indeed class __init__ ", e)
+            logging.error("Unknown Exception in Indeed class __init__ ", e)
+
+    '--------------opening website-------'
+
+    def indeed_opening_portal_url(self):
+
+        # try:
+        #     self.driver.execute_script("window.open('')")
+        #     self.driver.switch_to.window(self.driver.window_handles[0])
+        #     sleep(1)
+        #     print(len(self.driver.window_handles))
+        #
+        #     try:
+        #         if (len(self.driver.window_handles) == 3):
+        #             self.driver.switch_to.window(self.driver.window_handles[1])
+        #             sleep(1)
+        #             self.driver.close()
+        #             sleep(1)
+        #
+        #     except Exception as e:
+        #         print('Unknown Exception in Switch windows', e)
+        #         pass
+        #
+        #     finally:
+        #
+        #         self.driver.switch_to.window(self.driver.window_handles[0])
+        sleep(3)
+        # findjobs_button = self.driver.find_element_by_xpath(
+        #     "//button[@class='icl-Button icl-Button--primary icl-Button--md icl-WhatWhere-button']")
+
+        findjobs_button = self.driver.find_element_by_css_selector("#whatWhereFormId button")
+        findjobs_button.click()
+        self.indeed_alert()
+
+    # except Exception as e:
+    #     print("Unknown exception in indeed_opening_portal_url", e)
+    #     logging.error("Unknown exception in indeed_opening_portal_url", e)
+    #     self.driver.get_screenshot_as_file('Screenshots/indeed_opening_portal_url_exception.png')
+
+    def indeed_iterating_job_location(self, job_title, job_location, jp_common):
+
+        job_name = job_title
+        job_loc = job_location
+
+        try:
+            jp_common.get_url(self.driver, self.url)
+
+            findjobs_button = self.driver.find_element_by_css_selector("#whatWhereFormId button")
+            findjobs_button.click()
+
+            #changes
+            if(self.driver.find_element_by_css_selector(".h-captcha")):
+                time.sleep(20)
+            #self.indeed_alert()
+
+            # self.indeed_opening_portal_url()
+            sleep(2)
+            print("checking inside", job_title)
+            key = jp_common.set_job_category(job_title)
+            self.job_details['Job Category'] = key
+            print("key", key)
+            print(job_title, job_location)
+            # job_name = job_title
+            # job_loc = job_location
+            self.job_details['Date Time Scrapped'] = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
+            self.job_details['Searched Job Title'] = job_name
+            self.job_details['Searched Job Location'] = job_loc
+            # self.indeed_website_search(jp_common, job_name, job_loc)
+            # self.indeed_website_search_24hrs(jp_common, job_name, job_loc)
+        except NoSuchElementException as e:
+            print("Unknown exception in indeed_iterating_job_location", e)
+            logging.error("Unknown exception in indeed_iterating_job_location", e)
+            self.driver.get_screenshot_as_file("Screenshots/indeed_iterating_job_location_exception.png")
+
+        finally:
+            self.indeed_website_search_24hrs(jp_common, job_name, job_loc)
+
+    '-----------------alert---------------'
+
+    def indeed_alert(self):
+        try:
+            WebDriverWait(self.driver, 3)
+            # self.driver.find_element_by_id("popover-foreground")
+            # WebDriverWait(self.driver, 10).until(
+            # EC.presence_of_element_located((By.XPATH, "popover-foreground")))
+            self.driver.find_element_by_id("popover-x").click()
+            # WebDriverWait(self.driver, 10).until(
+            # EC.presence_of_element_located((By.XPATH, "popover-x")))
+            print("alert found")
+        except NoSuchElementException as e:
+            self.driver.get_screenshot_as_file("Screenshots/indeed_alert_exception.png")
+            print("Unknown exception in indeed_alert", e)
+
+    def indeed_website_search_24hrs(self, jp_common, job, location):
+
+        try:
+            sleep(1)
+            # self.indeed_alert()
+            what_label = self.driver.find_element_by_css_selector("#what").send_keys(
+                str(job) + Keys.TAB + str(location) + Keys.ENTER)
+            self.page = 0
+            self.count = 0
+            try:
+                '----------------Handling Alert----------------------------'
+                print("handling alert")
+                # popup = WebDriverWait(self.driver, 5).until(
+                #     EC.presence_of_element_located((By.ID, "popover-foreground")))
+                # self.driver.find_element_by_id("popover-x").click()
+                WebDriverWait(self.driver, 1).until(
+                    EC.element_to_be_clickable((By.ID, "popover-x"))).click()
+                print("alert found")
+                '----------------------------------------------------------------'
+            except NoSuchElementException as e:
+                print("exception ====", e)
+
+            date_posted_element = WebDriverWait(self.driver, 5).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, "#filter-dateposted span")))
+            date_posted_element.click()
+
+            past_24hrs_element = WebDriverWait(self.driver, 5).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, "#filter-dateposted li:nth-child(1) span")))
+
+            print(past_24hrs_element)
+            past_24hrs_element.click()
+            sleep(3)
+            try:
+                wrong_search_element = self.driver.find_element_by_xpath("//div[@class='bad_query']/h1")
+                print(wrong_search_element.text)
+                if wrong_search_element.text.find("did not match any jobs"):
+                    print("No jobs found:", job, location)
+            except NoSuchElementException as e:
+                print("No such element found ", e)
+                # logging.error("Unknown exception in indeed_website_search_24hrs wrong search element not found ")
+                # logging.error(e)
+
+            self.indeed_get_links(jp_common)
+            self.indeed_alert()
+            what = self.driver.find_element_by_css_selector("#what").send_keys(Keys.CONTROL, "a")
+
+        except Exception as e:
+            self.driver.get_screenshot_as_file("Screenshots/indeed_website_search_24hrs_exception.png")
+            print("Unknown exception in indeed_website_search_24hrs", e)
+            logging.error("Unknown exception in indeed_website_search_24hrs")
+            logging.info(e)
+
+    def indeed_website_search(self, jp_common, job, location):
+        breakpoint()
+        try:
+            self.indeed_alert()
+            what_label = self.driver.find_element_by_xpath("//input[@id='what']").send_keys(
+                str(job) + Keys.TAB + str(location) + Keys.ENTER)
+            self.page = 0
+            self.count = 0
+            self.indeed_alert()
+            self.indeed_get_links(jp_common)
+            self.indeed_alert()
+            what = self.driver.find_element_by_xpath(
+                "//input[@id='what']").send_keys(Keys.CONTROL, "a")
+        except Exception as e:
+            self.driver.get_screenshot_as_file("Screenshots/indeed_website_search_exception.png")
+            print("Unknown exception in indeed_website_search", e)
+            logging.error("Unknown exception in indeed_website_search", e)
+
+    '------------getting title and link from the website-----------'
+
+    def indeed_get_links(self, jp_common):
+
+        try:
+            job_url = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".title a")))
+            for i in job_url:
+                i.click()
+                sleep(2)
+                print("It clicked")
+                self.job_details['Job Link'] = i.get_attribute("href")
+                iframe = self.driver.find_element_by_id("vjs-container-iframe")
+                self.driver.switch_to.frame(iframe)
+                job_title = self.driver.find_element_by_css_selector("h1.jobsearch-JobInfoHeader-title").text
+
+                print(job_title)
+
+                self.job_details['Job Title'] = job_title
+
+                company_name = self.driver.find_element_by_css_selector(".jobsearch-InlineCompanyRating > div").text
+                location = self.driver.find_element_by_css_selector(".jobsearch-JobInfoHeader-subtitle> div + div").text
+
+                print(company_name)
+                print(location)
+                self.job_details['Job Company Name'] = company_name
+                self.job_details['Job Location'] = location
+
+                description = self.driver.find_element_by_css_selector("#jobDescriptionText").text
+                self.job_details['Job Description'] = description
+
+                dateposted = self.driver.find_element_by_css_selector("div.jobsearch-JobMetadataFooter div:nth-child(2)").text
+                self.job_details['Job Date Posted'] = dateposted
+
+                self.job_details['Job Email'] = jp_common.get_Email_desc(description)
+                # print(jp_common.get_Email_desc(description))
+                self.job_details['Job Phone No'] = jp_common.get_Phno_desc(description)
+                # print(self.job_details['Job Phone No'])
+                # dateposted = jp_common.datePosted(dateposted)
+
+                print(dateposted)
+
+                jp_common.get_all_phno()
+                jp_common.get_all_email()
+                if self.job_details['Job Email'] or self.job_details['Job Phone No']:
+                    jp_common.write_to_csv(self.job_details)
+
+
+
+
+                self.driver.switch_to.default_content()
+            #     self.job_title_list.append(i.get_attribute("title"))
+            #     self.job_link_list.append(i.get_attribute("href"))
+            # self.page += 1
+            # print("Page_No", self.page)
+            #
+            # self.indeed_convert_title_link_to_numpy(self.job_title_list, self.job_link_list, jp_common)
+            self.indeed_next_page(jp_common)
+        except NoSuchElementException as e:
+            self.driver.get_screenshot_as_file("Screenshots/indeed_get_links_exception.png")
+            print("Unknown exception in indeed_get_links", e)
+            logging.error("Unknown exception in indeed_get_links", e)
+
+    '-----converting the job_title and job_link list to numpy------'
+
+    def indeed_convert_title_link_to_numpy(self, _job_title, _job_link, jp_common):
+        job_link = np.array(_job_link).tolist()
+        job_title = np.array(_job_title).tolist()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        for jobtitles, joblinks in np.nditer([job_title, job_link]):
+            sleep(1)
+            stri_joblinks = np.array_str(joblinks)
+            self.job_details['Job Link'] = stri_joblinks
+            self.job_details['Job Title'] = jobtitles
+            self.driver.get(stri_joblinks)
+
+            self.indeed_job_title_link(jobtitles, joblinks, jp_common)
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.indeed_next_page(jp_common)
+
+        return None
+
+    '--------checking for dismiss---------'
+
+    def indeed_check_dismiss(self):
+        try:
+            dismiss = self.driver.find_element_by_xpath("//div[@class='icl-LegalConsentBanner-action']/button")
+            dismiss.click()
+        except Exception as e:
+            self.driver.get_screenshot_as_file("Screenshots/indeed_check_dismiss_exception.png")
+            print("Unknown exception in indeed_check_dismiss", e)
+            logging.error("Unknown exception in indeed_check_dismiss", e)
+
+    def indeed_next_page(self, jp_common):
+        try:
+            # self.job_link_list.clear()
+            # self.job_title_list.clear()
+
+            self.indeed_check_dismiss()
+            self.indeed_alert()
+            # self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+            sleep(1)
+            nextpage = WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.XPATH,
+                                                                                           "//a[@aria-label='Next']")))
+            nextpage.click()
+            sleep(1)
+            # print("-------------------")
+            # print(len(self.job_link_list))
+            # self.job_link_list.clear()
+            # self.job_title_list.clear()
+
+            self.indeed_get_links(jp_common)
+        except NoSuchElementException as e:
+            print("Unknown exception in indeed_next_page", e)
+            logging.error("Unknown exception in indeed_next_page" + '\n' + str(e))
+            self.driver.get_screenshot_as_file("Screenshots/" + str(datetime.time(datetime.now())) + "indeed_next_page_"
+                                                                                                     "exception.png")
+
+    '----------extract job_title and job_link------'
+
+    def indeed_job_title_link(self, jobtitle, joblink, jp_common):
+        self.job_title = jobtitle
+        self.job_link = joblink
+        self.count += 1
+        print(self.page, self.count, self.job_title, '\n', self.job_link)
+        self.indeed_extract_companyname(jp_common)
+
+        '----------extract company_name------'
+
+    def indeed_extract_companyname(self, jp_common):
+        try:
+            # self.company_name = WebDriverWait(self.driver, 1).until(EC.presence_of_element_located(
+            #     (By.XPATH, "//div[@class='jobsearch-InlineCompanyRating icl-u-xs-mt--xs  jobsearch"
+            #                "-DesktopStickyContainer-companyrating']/div[1]"))).text
+            sleep(5)
+            self.company_name = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(
+                (By.CSS_SELECTOR, ".jobsearch-InlineCompanyRating > div"))).text
+            print("company Name:", self.company_name)
+            self.job_details['Job Company Name'] = self.company_name
+
+        except Exception as e:
+            print("Unknown exception in indeed_extract_companyname", e)
+            logging.error("Unknown exception in indeed_extract_companyname", e)
+            self.driver.get_screenshot_as_file("Screenshots/indeed_extract_companyname_exception.png")
+
+        finally:
+            self.indeed_extract_job_location(jp_common)
+
+    '----------extract joblocation--------'
+
+    def indeed_extract_job_location(self, jp_common):
+        try:
+            location = self.driver.find_elements_by_xpath("//div[@class = 'icl-u-xs-mt--xs icl-u-textColor--secondary "
+                                                          "jobsearch-JobInfoHeader-subtitle "
+                                                          "jobsearch-DesktopStickyContainer-subtitle']//div[2]")
+            print("job location", location[-1].text)
+            self.job_details['Job Location'] = location[-1].text
+        except Exception as e:
+            print("Unknown exception in indeed_extract_job_location", e)
+            logging.error("Unknown exception in indeed_extract_job_location", e)
+            self.driver.get_screenshot_as_file("Screenshots/indeed_extract_job_location_exception.png")
+        finally:
+            self.indeed_extract_email_date_posted_phone(jp_common)
+
+    '-----------extract email, phonenumber, dateposted--------------'
+
+    def indeed_extract_email_date_posted_phone(self, jp_common):
+        try:
+            description = self.driver.find_element_by_xpath("//div[@id='jobDescriptionText']").text
+            self.job_details['Job Description'] = description
+            dateposted = self.driver.find_element_by_xpath("//div[@class='jobsearch-JobMetadataFooter']").text
+            self.job_details['Job Email'] = jp_common.get_Email_desc(description)
+            print(self.job_details['Job Email'])
+            self.job_details['Job Phone No'] = jp_common.get_Phno_desc(description)
+            print(self.job_details['Job Phone No'])
+            dateposted = jp_common.datePosted(dateposted)
+            self.job_details['Job Date Posted'] = dateposted
+            print(dateposted)
+
+            jp_common.get_all_phno()
+            jp_common.get_all_email()
+            if self.job_details['Job Email'] or self.job_details['Job Phone No']:
+                jp_common.write_to_csv(self.job_details)
+            self.jobs += 1
+            if self.jobs % 150 == 0:
+                print("sleeping++++++++++")
+                logging.info("sleeping")
+                time.sleep(random.randint(5, 8))
+        except Exception as e:
+            print("Unknown exception in indeed_extract_email_date_posted_phone", e)
+            logging.error("Unknown exception in indeed_extract_email_date_posted_phone", e)
+            self.driver.get_screenshot_as_file("Screenshots/indeed_extract_email_date_posted_phone_exception.png")
+
+# job_search=["SDET","SDET","DS","Franklin-TN","Oregon","Oregon"]
+# job_search=["SDET","Java Developer","Java","Chicago","Seattle","Atlanta"]
+# job_search=["SDET","Franklin-TN"]
+# job_search=["SDET","Remote"]
+#
+# print(job_search)
+# job_arr = np.array(job_search).reshape(2, int(len(job_search) / 2))
+# jp_common = JobPortal_Common()
+# driver = jp_common.driver_creation("chrome")
+# indeed_obj = IndeedMain(driver, Driver_Paths.indeed_url)
+# indeed_obj.indeed_iterating_job_location(job_arr, jp_common)

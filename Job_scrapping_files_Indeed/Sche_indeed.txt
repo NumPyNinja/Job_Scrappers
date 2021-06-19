@@ -1,0 +1,3 @@
+cd Job_scrapping_files
+
+python main.py

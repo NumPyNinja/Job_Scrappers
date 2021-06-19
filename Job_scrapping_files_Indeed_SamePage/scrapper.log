@@ -1,0 +1,21 @@
+04-Feb-21 03:03:35 root - INFO - <module>- Starting, Job Search....
+04-Feb-21 03:03:35 root - INFO - <module>- Job titles
+04-Feb-21 03:03:35 root - INFO - <module>- ['Data Science' 'Python Developers' 'Java Developer'
+ 'Software Quality Assurance Engineer' 'SDET']
+04-Feb-21 03:03:35 root - INFO - <module>- Job Locations
+04-Feb-21 03:03:35 root - INFO - <module>- ['Washington, DC' 'Boston, MA' 'San Francisco, CA' 'Austin, TX'
+ 'San Diego, CA' 'Durham-Chapel Hill, NC' 'Charlotte, NC' 'San Jose, CA'
+ 'Raleigh, NC' 'Seattle, WA' 'Tampa, FL' 'Jacksonville, FL'
+ 'Baltimore, MD' 'Columbus, OH' 'New York, NY' 'Atlanta, GA'
+ 'Colorado Springs, CO' 'Boulder, CO' 'Denver, CO' 'Huntsville, AL'
+ 'Nashville, TN' 'Dallas, TX']
+04-Feb-21 03:03:35 root - INFO - __init__- JobPortal_Common_Defs Initialised
+04-Feb-21 03:03:35 root - INFO - __init__- Jobs_Scrapped_new.csv exists
+04-Feb-21 03:03:36 WDM - INFO - log- Driver [C:\Users\Administrator\.wdm\drivers\geckodriver\win64\v0.29.0\geckodriver.exe] found in cache
+04-Feb-21 03:03:51 root - INFO - get_driver- Browser opened successfully
+04-Feb-21 03:04:30 root - ERROR - indeed_website_search_24hrs- Unknown exception in indeed_website_search_24hrs
+04-Feb-21 03:04:30 root - INFO - indeed_website_search_24hrs- Message: Unable to locate element: #what
+
+04-Feb-21 03:04:59 root - ERROR - indeed_website_search_24hrs- Unknown exception in indeed_website_search_24hrs
+04-Feb-21 03:04:59 root - INFO - indeed_website_search_24hrs- Message: 
+
