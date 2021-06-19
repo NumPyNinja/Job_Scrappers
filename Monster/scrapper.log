@@ -1,0 +1,14 @@
+13-Jun-21 08:13:49 root - INFO - <module>- Starting, Job Search....
+13-Jun-21 08:13:50 root - INFO - <module>- Job titles
+13-Jun-21 08:13:50 root - INFO - <module>- ['Python Developer' 'Data Science' 'Java Developer'
+ 'Software Quality Assurance Engineer' 'SDET']
+13-Jun-21 08:13:50 root - INFO - <module>- Job Locations
+13-Jun-21 08:13:50 root - INFO - <module>- ['Seattle, WA' 'Washington, DC' 'Boston, MA' 'San Francisco, CA'
+ 'Austin, TX' 'San Diego, CA' 'Durham-Chapel Hill, NC' 'Charlotte, NC'
+ 'San Jose, CA' 'Raleigh, NC' 'Tampa, FL' 'Jacksonville, FL'
+ 'Baltimore, MD' 'Columbus, OH' 'New York, NY' 'Atlanta, GA'
+ 'Colorado Springs, CO' 'Boulder, CO' 'Denver, CO' 'Huntsville, AL'
+ 'Nashville, TN' 'Dallas, TX']
+13-Jun-21 08:13:50 root - INFO - __init__- JobPortal_Common_Defs Initialised
+13-Jun-21 08:13:50 root - INFO - __init__- Started at:2021-06-13 08:13:49.568146
+13-Jun-21 08:13:50 root - INFO - __init__- Jobs_Scrapped_new.csv exists

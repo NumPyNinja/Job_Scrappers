@@ -1,0 +1,14 @@
+root - INFO - Starting, Job Search....
+root - INFO - Job titles
+root - INFO - ['Python Developer' 'Data Science' 'Java Developer'
+ 'Software Quality Assurance Engineer' 'SDET']
+root - INFO - ['Seattle, WA' 'Washington, DC' 'Boston, MA' 'San Francisco, CA'
+ 'Austin, TX' 'San Diego, CA' 'Durham-Chapel Hill, NC' 'Charlotte, NC'
+ 'San Jose, CA' 'Raleigh, NC' 'Tampa, FL' 'Jacksonville, FL'
+ 'Baltimore, MD' 'Columbus, OH' 'New York, NY' 'Atlanta, GA'
+ 'Colorado Springs, CO' 'Boulder, CO' 'Denver, CO' 'Huntsville, AL'
+ 'Nashville, TN' 'Dallas, TX']
+WDM - INFO - Getting latest mozilla release info for v0.29.1
+WDM - INFO - Trying to download new driver from https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-win64.zip
+WDM - INFO - Driver has been saved in cache [C:\Users\Priya\.wdm\drivers\geckodriver\win64\v0.29.1]
+root - INFO - Browser opened successfully
